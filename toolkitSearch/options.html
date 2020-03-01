@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+<title>Toolkit Search Options</title>
+<script src="options.js"></script>
+</head>
+<body>
+<table id=rules></table>
+<br/>
+<button id=new>+</button>
+<table hidden>
+  <tr id=rule-template hidden>
+    <td class=nowrap>
+      <button class=move-up>&uarr;</button>
+      <button class=move-down>&darr;</button>
+    </td>
+    <td>
+      <input type=text placeholder="Toolkit path" class=path>
+    </td>
+    <td>
+      <input type=text placeholder="Process type" class=process>
+    </td>
+    <td>
+      <span class=nowrap>
+        <input type=radio name="selectedToolkit" class=enabled checked>
+      </span>
+    </td>
+    <td>
+      <button class=remove>X</button>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

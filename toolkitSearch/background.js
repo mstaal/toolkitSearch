@@ -29,15 +29,15 @@ chrome.omnibox.onInputEntered.addListener(
             if(result.value.length === 0) {
                 alert("No results found based on search");
             } else if(result.value.length === 1) {
-                var id = result.value[0]?.Id
+                var id = result.value[0].Id;
                 chrome.tabs.create({ url: root + toolkit + dispForm + id });
             } else {
-                localStorage.titles = ""; 
+                localStorage.titles = "";
                 localStorage.caseIDs = "";
                 localStorage.toolkitBaseURL = root + toolkit + dispForm;
                 result.value.forEach(element => {
-                    localStorage.titles = localStorage.titles.concat(element?.Title + ",");
-                    localStorage.caseIDs = localStorage.caseIDs.concat(element?.Id + ",");
+                    localStorage.titles = localStorage.titles.concat(element.Title + ",");
+                    localStorage.caseIDs = localStorage.caseIDs.concat(element.Id + ",");
                 });
                 if(localStorage.titles) { localStorage.titles = localStorage.titles.substring(0, localStorage.titles.length - 1) }
                 if(localStorage.caseIDs) { localStorage.caseIDs = localStorage.caseIDs.substring(0, localStorage.caseIDs.length - 1) }

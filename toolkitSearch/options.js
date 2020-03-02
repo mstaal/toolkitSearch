@@ -15,7 +15,7 @@ function Rule(data) {
   this.render();
 
   this.getElement('path').onkeyup = storeRules;
-  this.getElement('process').onkeyup = storeRules;
+  this.getElement('process').onchange = storeRules;
   this.getElement('enabled').onchange = storeRules;
 
   var rule = this;
@@ -69,8 +69,31 @@ function storeRules() {
     node.rule.render();
     return {path: node.rule.getElement('path').value,
             process: node.rule.getElement('process').value,
+            processURL: getProcessURL(node.rule.getElement('process').value),
             enabled: node.rule.getElement('enabled').checked};
   }));
+}
+
+function getProcessURL(arg) {
+  switch (arg) {
+    case "Sager":
+    case "Cases":
+      return "Lists/Tasks/";
+    case "Arbejdspakker":
+    case "Work packages":
+      return "Lists/WorkPackages/";
+    case "Issues":
+    case "Udeståender":
+      return "Lists/Issues/";
+    case "Dokumentbibliotek":
+    case "Document Library":
+      return "DocumentLibrary/Forms/";
+    case "Slutprodukter":
+    case "Deliverables":
+      return "Deliverables/Forms/";
+    default:
+      return arg;
+  }
 }
 
 window.onload = function() {

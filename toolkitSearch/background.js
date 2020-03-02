@@ -7,11 +7,12 @@ chrome.omnibox.onInputEntered.addListener(
     function (text) {
         var contentType = "application/json";
         var root = "https://goto.netcompany.com/cases/";
-        var options = JSON.parse(localStorage.rules); var toolkit; var process;
+        var options = JSON.parse(localStorage.rules); var toolkit; var process; var processURL;
         options.forEach(option => {
             if(option.enabled) {
                 toolkit = option.path;
                 process = option.process;
+                processURL = option.processURL;
             }
         });
         if(!toolkit || !process) {
@@ -24,7 +25,7 @@ chrome.omnibox.onInputEntered.addListener(
                 'Accept': contentType
               }
         }).then(r => r.json()).then(result => {
-            var dispForm = "Lists/Tasks/DispForm.aspx?ID="
+            var dispForm = processURL.concat("DispForm.aspx?ID=");
             if(result.value.length === 0) {
                 alert("No results found based on search");
             } else if(result.value.length === 1) {

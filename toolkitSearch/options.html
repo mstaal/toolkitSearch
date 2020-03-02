@@ -1,14 +1,15 @@
 <!doctype html>
 <html>
 <head>
-<title>Toolkit Search Options</title>
-<script src="options.js"></script>
+  <meta charset="UTF-8">
+  <title>Toolkit Search Options</title>
+  <script src="options.js"></script>
 </head>
 <body>
-<table id=rules></table>
-<br/>
-<button id=new>+</button>
-<table hidden>
+  <table id=rules></table>
+  <br/>
+  <button id=new>+</button>
+  <table hidden>
   <tr id=rule-template hidden>
     <td class=nowrap>
       <button class=move-up>&uarr;</button>
@@ -18,7 +19,22 @@
       <input type=text placeholder="Toolkit path" class=path>
     </td>
     <td>
-      <input type=text placeholder="Process type" class=process>
+      <select class=process>
+        <optgroup label="Dansk">
+          <option value="Sager">Sager</option>
+          <option value="Slutprodukter">Slutprodukter</option>
+          <option value="Dokumentbibliotek">Dokumentbibliotek</option>
+          <option value="Udeståender">Udeståender</option>
+          <option value="Arbejdspakker">Arbejdspakker</option>
+        </optgroup>
+        <optgroup label="English">
+          <option value="Cases">Cases</option>
+          <option value="Deliverables">Deliverables</option>
+          <option value="Document Library">Document Library</option>
+          <option value="Issues">Issues</option>
+          <option value="Work packages">Work packages</option>
+        </optgroup>
+      </select>
     </td>
     <td>
       <span class=nowrap>

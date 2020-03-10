@@ -5,7 +5,6 @@
 // This event is fired with the user accepts the input in the omnibox.
 chrome.omnibox.onInputEntered.addListener(
     function (text) {
-        var contentType = "application/json";
         var root = "https://goto.netcompany.com/cases/";
         var options = JSON.parse(localStorage.rules); var toolkit; var process; var processURL;
         options.forEach(option => {
@@ -18,13 +17,22 @@ chrome.omnibox.onInputEntered.addListener(
         if(!toolkit || !process) {
             alert("Toolkit or process type has not been set correctly");
         }
-        var url = root.concat(toolkit,"_api/web/lists/getbytitle('", process, "')/items?$Filter=substringof('", text, "' + ,%20Title)&$select=Title,ID&$orderby=%20Created%20desc");
+        var url = root.concat(
+            toolkit.concat("/"), "_api/web/lists/getbytitle('", process, "')/items",
+            "?$Filter=substringof('", text, "',Title) or ID eq '", text, "'",
+            "&$select=Title,ID&$orderby= Created desc"
+            );
         fetch(url, {
             method: 'GET',
             headers: {
-                'Accept': contentType
+                'Accept': "application/json"
               }
-        }).then(r => r.json()).then(result => {
+        }).then(r => {
+            if(!r.ok) {
+                alert("Status ".concat(r.status, ": ", r.statusText, ": ", toolkit));
+            }
+            return r.json();
+        }).then(result => {
             var dispForm = processURL.concat("DispForm.aspx?ID=");
             if(result.value.length === 0) {
                 alert("No results found based on search");
@@ -43,5 +51,5 @@ chrome.omnibox.onInputEntered.addListener(
                 if(localStorage.caseIDs) { localStorage.caseIDs = localStorage.caseIDs.substring(0, localStorage.caseIDs.length - 1) }
                 chrome.tabs.create({ url: 'results.html' });
             }
-        })
+        });
     });
